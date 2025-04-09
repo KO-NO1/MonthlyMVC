@@ -28,7 +28,7 @@ import com.example.MonthlyMVC.util.MonthlyPriceValidator;
 
 @Controller
 @RequestMapping("mansionInsert")
-@SessionAttributes({"mansionInsertForm", "prefetureList"})
+@SessionAttributes({"mansionInsertForm", "prefectureList"})
 public class MansionInsertController {
 
 
@@ -52,24 +52,24 @@ public class MansionInsertController {
   @GetMapping
   public String entry(Model model) {
     // 都道府県名ドロップダウンリスト作成
-    List<Prefecture> prefetureList = prefectureService.selectAll();
-    model.addAttribute("prefetureList", prefetureList);
+    List<Prefecture> prefectureList = prefectureService.selectAll();
+    model.addAttribute("prefectureList", prefectureList);
     return "mansion/mansionInsert";
   }
 
   @PostMapping("confirm")
   public String confirm(
-      @SessionAttribute(value = "prefetureList", required = false) List<Prefecture> prefetureList,
+      @SessionAttribute(value = "prefectureList", required = false) List<Prefecture> prefectureList,
       @Validated MansionInsertForm mansionInsertForm, BindingResult bindingResult, Model model) {
   
       // 都道府県リストが null の場合、再取得
-      if (prefetureList == null) {
-          prefetureList = prefectureService.selectAll();
-          model.addAttribute("prefetureList", prefetureList);
+      if (prefectureList == null) {
+          prefectureList = prefectureService.selectAll();
+          model.addAttribute("prefectureList", prefectureList);
       }
   
       // 都道府県名の取り出し
-      Prefecture selectedPrefecture = prefetureList.stream()
+      Prefecture selectedPrefecture = prefectureList.stream()
           .filter(p -> p.getId().equals(mansionInsertForm.getPrefectureId()))
           .findFirst()
           .orElse(null);
@@ -134,7 +134,7 @@ public class MansionInsertController {
   @PostMapping(value = "complete", params = "entryBack")
   public String entryBack(MansionInsertForm mansionRegistForm) {
     // noImage以外のファイルの場合削除
-    if (!(mansionRegistForm.getImagePath().equals(ImageEnum.NO_IMAGE.toString()))) {
+    if (!(mansionRegistForm.getImagePath().equals(ImageEnum.NO_IMAGE.getName()))) {
       // アップロードされたファイルを削除
       fileHelper.fileDelete(mansionRegistForm.getImageFile());
     }

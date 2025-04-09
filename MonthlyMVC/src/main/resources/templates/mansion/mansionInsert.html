@@ -30,7 +30,7 @@
 				<th>都道府県 </th>
 				<td>
 					<select name="prefectureId">
-						<option th:each="p : ${prefetureList}" th:selected="${p.id == mansionInsertForm.prefectureId}"
+						<option th:each="p : ${prefectureList}" th:selected="${p.id == mansionInsertForm.prefectureId}"
 							th:value="${p.id}" th:text="${p.prefecture}"></option>
 					</select>
 					<span th:errors="*{prefectureId}" class="error"></span>

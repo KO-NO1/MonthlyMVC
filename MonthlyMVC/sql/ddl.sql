@@ -16,7 +16,7 @@ CREATE TABLE mansion
    building_date DATE,
    image_path VARCHAR (255),
    data_flag boolean default true,
-   foreign key (prefecture_id) references prefecture (id)
+   foreign key (prefecture_id) references prefecture (id) ON DELETE CASCADE
 );
  
  

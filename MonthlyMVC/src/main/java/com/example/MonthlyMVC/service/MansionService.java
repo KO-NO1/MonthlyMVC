@@ -13,7 +13,7 @@ public interface MansionService {
   /*
    * mansionテーブルの全データを取得するメソッド
    */
-  List<EntityMansion> selectAll();
+  List<Mansion> selectAll();
 
   /*
    * mansionテーブルに登録するメソッド
