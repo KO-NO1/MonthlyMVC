@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>マンション一覧</title>
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body>
+	<h1>マンション一覧</h1>
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>マンション名</th>
+			<th>住所</th>
+			<th>都道府県</th>
+			<th>月額料金</th>
+			<th>築年月日</th>
+			<th>画像</th>
+			<th>データフラグ</th>
+			<th>詳細</th>
+		</tr>
+
+		<tr th:each="m:${mansionList}">
+			<td>[[${m.id}]]</td>
+			<td>[[${m.name}]]</td>
+			<td>[[${m.address}]]</td>
+			<td>[[${m.prefecture.prefecture}]]</td>
+			<td>[[${#numbers.formatInteger(m.monthlyPrice, 1, 'COMMA')}]]円</td>
+			<td>[[${#dates.format(m.buildingDate, 'yyyy年MM 月dd 日')}]] </td>
+			<td><img th:src="${m.imagePath}" class="imgList"></td>
+			<td>[[${m.dataFlag}]]</td>
+			<td><a th:href="@{/mansionDetail/{id}(id=${m.id})}">詳細画面</a></td>
+			<td>
+                <form th:action="@{/mansionDelete/{id}(id=${m.id})}" method="post">
+                    <button type="submit">削除</button>
+                </form>
+            </td>
+		</tr>
+	</table>
+</body>
+
+</html>

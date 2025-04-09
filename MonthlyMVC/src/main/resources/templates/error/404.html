@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>404 - リソースが見つかりません</title>
+</head>
+<body>
+    <h1>404 - リソースが見つかりません</h1>
+    <p th:text="${errorMessage}"></p>
+    <a th:href="@{/}">トップページに戻る</a>
+</body>
+</html>

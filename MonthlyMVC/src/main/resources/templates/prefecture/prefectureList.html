@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>都道府県一覧</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <script th:src="@{/js/prefecture.js}"></script> <!-- 外部JavaScriptファイルを読み込み -->
+</head>
+<body>
+    <h1>都道府県一覧</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>都道府県名</th>
+            <th>最大月額料金</th>
+            <th>データフラグ</th>
+            <th>削除</th>
+        </tr>
+        <tr th:each="p : ${prefectureList}">
+            <td>[[${p.id}]]</td>
+            <td>[[${p.prefecture}]]</td>
+            <td>[[${#numbers.formatInteger(p.maxMonthlyPrice, 1, 'COMMA')}]]円</td>
+            <td>[[${p.dataFlag}]]</td>
+            <td>
+				<form th:action="@{/prefectureDelete/{id}(id=${p.id})}" method="post" 
+				      onsubmit="return confirmDelete();">
+				    <button type="submit">削除</button>
+				</form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
