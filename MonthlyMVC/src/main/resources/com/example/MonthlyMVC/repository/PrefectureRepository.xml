@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.example.MonthlyMVC.repository.PrefectureRepository">
+	<select id="selectById" parameterType="int"
+		resultType="Prefecture">
+		SELECT id,prefecture,max_monthly_price 
+		FROM Prefecture
+		WHERE
+		id=#{id}
+	</select>
+
+	<select id="selectAll" resultMap="Prefecture">
+		SELECT id, prefecture,
+		max_monthly_price , data_flag
+		FROM
+		Prefecture
+		ORDER BY id
+	</select>
+
+	<insert id="insert" parameterType="Prefecture">
+		INSERT INTO Prefecture
+		(prefecture, max_monthly_price, data_flag)
+		VALUES (#{prefecture},
+		#{maxMonthlyPrice}, #{dataFlag})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+		DELETE FROM Prefecture WHERE
+		id = #{id}
+	</delete>
+
+	<resultMap id="Prefecture" type="Prefecture">
+		<id property="id" column="id" />
+		<result property="prefecture" column="prefecture" />
+		<result property="maxMonthlyPrice" column="max_monthly_price" />
+		<result property="dataFlag" column="data_flag" /> <!-- 追加 -->
+	</resultMap>
+</mapper>

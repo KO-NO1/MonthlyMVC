@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+    PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+    "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!-- JDBC接続情報 -->
+	<context id="MyBatis3" targetRuntime="MyBatis3">
+		<!-- コメントジェネレーター -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<!-- JDBC接続設定 -->
+		<jdbcConnection driverClass="org.postgresql.Driver"
+			connectionURL="jdbc:postgresql://localhost:5432/MonthlyMVC"
+			userId="postgres" password="postgres" />
+
+		<!-- Java型解決設定 -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- Javaモデルの生成先 -->
+		<javaModelGenerator
+			targetPackage="com.example.MonthlyMVC.model"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- マッパーXMLの生成先 -->
+		<sqlMapGenerator
+			targetPackage="com.example.MonthlyMVC.repository"
+			targetProject="src/main/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- マッパーインターフェースの生成先 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.example.MonthlyMVC.repository"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- テーブル設定 -->
+		<table tableName="mansion">
+			<property name="selectByPrimaryKeyStatementEnabled"
+				value="true" />
+			<property name="selectByExampleStatementEnabled"
+				value="true" />
+			<property name="insertStatementEnabled" value="true" />
+			<property name="updateByPrimaryKeyStatementEnabled"
+				value="true" />
+			<property name="deleteByPrimaryKeyStatementEnabled"
+				value="true" />
+			<property name="deleteByExampleStatementEnabled"
+				value="true" />
+		</table>
+
+
+
+	</context>
+</generatorConfiguration>

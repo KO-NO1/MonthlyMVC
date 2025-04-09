@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>都道府県登録</title>
+</head>
+<body>
+    <h1>都道府県登録</h1>
+    <form th:action="@{/prefectureInsert}" th:object="${prefecture}" method="post">
+        <label for="prefecture">都道府県名:</label>
+        <input type="text" id="prefecture" th:field="*{prefecture}" required>
+        <br>
+        <label for="maxMonthlyPrice">最大月額料金:</label>
+        <input type="number" id="maxMonthlyPrice" th:field="*{maxMonthlyPrice}" required>
+        <br>
+        <label for="dataFlag">データフラグ:</label>
+        <input type="checkbox" id="dataFlag" th:field="*{dataFlag}">
+        <br>
+        <button type="submit">登録</button>
+    </form>
+    <p th:text="${message}"></p>
+</body>
+</html>

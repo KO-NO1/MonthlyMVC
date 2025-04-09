@@ -1,9 +1,58 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC
-    "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
-	namespace="">
+	namespace="com.example.MonthlyMVC.repository.MansionRepository">
 
-</mapper>
+	<select id="selectAll" resultMap="mansionList">
+		<!-- SQL文に < や > などの特殊文字が含まれる場合は、クエリを<![CDATA[ ]]>で囲む -->
+		SELECT
+		m.id,name,address,p.prefecture,m.monthly_price,m.building_date,m.image_path,m.data_flag
+		FROM mansion m
+		INNER JOIN prefecture p ON m.prefecture_id=p.id Order by m.id
+	</select>
+
+	<insert id="insert" parameterType="Mansion">
+		INSERT INTO mansion
+		(name,address,prefecture_id,monthly_price,building_date,image_path)
+		VALUES(#{name},#{address},#{prefectureId},#{monthlyPrice},#{buildingDate}
+		,#{imagePath})
+	</insert>
+
+	<select id="selectByIdDetail" parameterType="int"
+		resultMap="mansionList">
+
+		SELECT
+		m.id,name,address,p.prefecture,m.monthly_price,m.building_date,m.image_path,m.data_flag
+		FROM mansion m
+		INNER JOIN prefecture p ON m.prefecture_id=p.id
+		WHERE
+		m.id=#{id}
+
+	</select>
+
+	<delete id="deleteById" parameterType="int">
+		DELETE FROM mansion WHERE
+		id = #{id}
+	</delete>
+
+	<resultMap id="mansionList" type="Mansion">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="address" column="address" />
+		<result property="prefectureId" column="prefecture_id" />
+		<result property="monthlyPrice" column="monthly_price" />
+		<result property="buildingDate" column="building_date" />
+		<result property="imagePath" column="image_path" />
+		<result property="dataFlag" column="data_flag" />
+		<!-- prefectureテーブルのカラムprefectureとidをmodel.Prefecture.javaのプロパティーにマッピングする -->
+		<!-- selectAllではtype="Mansion"クラスを指定しており、Mansionクラスには"prefectureテーブルクラスのprefectureカラムしかないので、 -->
+		<!-- ほかの値は使用されないが、拡張性をもたせるために設定しておく -->
+		<association property="prefecture" javaType="Prefecture">
+			<!-- <id property="id" column="id" /> -->
+			<result property="prefecture" column="prefecture" />
+			<!-- <result property="maxMonthlyPrice" column="max_monthly_price" /> -->
+			<result property="dataFlag" column="data_flag" />
+		</association>
+	</resultMap>
+</mapper> 

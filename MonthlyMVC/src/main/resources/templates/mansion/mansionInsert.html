@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>マンション登録</title>
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body>
+	<h1>マンション登録</h1>
+	<form th:action="@{/mansionInsert/confirm}" method="post" th:object="${mansionInsertForm}"
+		enctype="multipart/form-data">
+		<table>
+			<tr>
+				<th>マンション名</th>
+				<td>
+					<input type="text" th:field="*{name}">
+					<span th:errors="*{name}" class="error"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>住所</th>
+				<td>
+					<input type="text" th:field="*{address}">
+					<span th:errors="*{address}" class="error"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>都道府県 </th>
+				<td>
+					<select name="prefectureId">
+						<option th:each="p : ${prefetureList}" th:selected="${p.id == mansionInsertForm.prefectureId}"
+							th:value="${p.id}" th:text="${p.prefecture}"></option>
+					</select>
+					<span th:errors="*{prefectureId}" class="error"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>月額料金</th>
+				<td>
+					<input type="number" th:field="*{monthlyPrice}" min="1" max="2147483647">
+					<span th:errors="*{monthlyPrice}" class="error"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>築年月日</th>
+				<td>
+					<input type="date" th:field="*{buildingDate}">
+					<span th:errors="*{buildingDate}" class="error"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>画像</th>
+				<td><input type="file" th:field="*{imageFile}"><br>
+					※画像を登録しない場合はnoImage画像が登録されます</td>
+			</tr>
+		</table>
+		<p class="submit"><input type="submit" value="確認"></p>
+	</form>
+
+</body>
+
+</html>
