@@ -134,7 +134,7 @@ public class MansionInsertController {
   @PostMapping(value = "complete", params = "entryBack")
   public String entryBack(MansionInsertForm mansionRegistForm) {
     // noImage以外のファイルの場合削除
-    if (!(mansionRegistForm.getImagePath().equals(ImageEnum.NO_IMAGE.getName()))) {
+    if (!(mansionRegistForm.getImagePath().endsWith(ImageEnum.NO_IMAGE.getName()))) {
       // アップロードされたファイルを削除
       fileHelper.fileDelete(mansionRegistForm.getImageFile());
     }
