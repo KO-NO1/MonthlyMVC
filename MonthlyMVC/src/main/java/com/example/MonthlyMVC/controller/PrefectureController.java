@@ -19,7 +19,7 @@ public class PrefectureController {
   @Autowired
   private MansionService mansionService;
 
-  @GetMapping("/prefectureInsert")
+  @GetMapping("/Insert")
   public String showInsertForm(Model model) {
     model.addAttribute("prefecture", new Prefecture());
     return "prefecture/prefectureInsert";

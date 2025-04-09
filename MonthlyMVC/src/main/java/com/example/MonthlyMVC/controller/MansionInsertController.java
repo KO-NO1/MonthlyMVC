@@ -53,8 +53,15 @@ public class MansionInsertController {
   public String entry(Model model) {
     // 都道府県名ドロップダウンリスト作成
     List<Prefecture> prefectureList = prefectureService.selectAll();
-    model.addAttribute("prefectureList", prefectureList);
-    return "mansion/mansionInsert";
+        // maxMonthlyPrice が null の場合にデフォルト値を設定
+        for (Prefecture prefecture : prefectureList) {
+          if (prefecture.getMaxMonthlyPrice() == null) {
+              prefecture.setMaxMonthlyPrice(0); // デフォ6ルト値を設定
+          }
+      }
+  
+      model.addAttribute("prefectureList", prefectureList);
+      return "mansion/mansionInsert";
   }
 
   @PostMapping("confirm")
