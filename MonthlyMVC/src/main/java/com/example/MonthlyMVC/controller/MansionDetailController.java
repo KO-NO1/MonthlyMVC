@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.example.MonthlyMVC.exception.ResourceNotFoundException;
+import com.example.MonthlyMVC.model.Mansion;
 import com.example.MonthlyMVC.service.MansionService;
 
 @Controller
@@ -16,10 +17,14 @@ public class MansionDetailController {
   // マンション詳細画面
   @GetMapping("/mansionDetail/{id}")
   public String mansionDetail(@PathVariable("id") Integer id, Model model) {
-    model.addAttribute("mansionDetail", mansionService.selectByIdDetail(id));
-    if (mansionService.selectByIdDetail(id) == null) {
+
+    Mansion mansion = mansionService.selectByIdDetail(id);
+    
+    if (mansion == null) {
       throw new ResourceNotFoundException("マンションが見つかりません: ID=" + id);
     }
+    
+    model.addAttribute("mansionDetail", mansion);
     return "mansion/mansionDetail";
   }
 }
