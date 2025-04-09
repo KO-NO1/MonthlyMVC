@@ -4,11 +4,10 @@
 <mapper
 	namespace="com.example.MonthlyMVC.repository.PrefectureRepository">
 	<select id="selectById" parameterType="int"
-		resultType="Prefecture">
-		SELECT id,prefecture,max_monthly_price 
+		resultMap="Prefecture">
+		SELECT id, prefecture, max_monthly_price, data_flag
 		FROM Prefecture
-		WHERE
-		id=#{id}
+		WHERE id=#{id}
 	</select>
 
 	<select id="selectAll" resultMap="Prefecture">
