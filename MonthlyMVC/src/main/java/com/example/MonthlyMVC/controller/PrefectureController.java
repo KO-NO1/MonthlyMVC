@@ -32,6 +32,13 @@ public class PrefectureController {
     return "prefecture/prefectureInsert";
   }
 
+  @GetMapping("/prefectureInsert")
+  public String getinsertPrefecture(Prefecture prefecture, Model model) {
+    prefectureService.insert(prefecture);
+    model.addAttribute("message", "都道府県を登録しました: " + prefecture.getPrefecture());
+    return "prefecture/prefectureInsert";
+  }
+
   @GetMapping("/prefectureList")
   public String showPrefectureList(Model model) {
     model.addAttribute("prefectureList", prefectureService.selectAll());
