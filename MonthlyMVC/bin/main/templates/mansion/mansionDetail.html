@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>マンション詳細</title>
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body>
+	<h1>マンション詳細</h1>
+	<table>
+		<tr>
+			<th>マンション名</th>
+			<td>[[${mansionDetail.name}]]</td>
+		</tr>
+		<tr>
+			<th>住所</th>
+			<td>[[${mansionDetail.address}]]</td>
+		</tr>
+		<tr>
+			<th>都道府県</th>
+			<td>[[${mansionDetail.prefecture.prefecture}]]</td>
+		</tr>
+		<tr>
+			<th>月額料金</th>
+			<td>[[${#numbers.formatInteger(mansionDetail.monthlyPrice, 1, 'COMMA')}]]円</td>
+		</tr>
+		<tr>
+			<th>築年月日</th>
+			<td>[[${#dates.format(mansionDetail.buildingDate, 'yyyy年MM 月dd 日')}]]</td>
+		</tr>
+		<tr>
+			<th>画像</th>
+			<td><img th:src="${mansionDetail.imagePath}"></td>
+		</tr>
+	</table>
+	<br>
+	<a th:href="@{/}">トップページに戻る</a>
+</body>
+
+</html>

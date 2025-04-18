@@ -10,10 +10,10 @@ import com.example.MonthlyMVC.exception.ResourceNotFoundException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ResourceNotFoundException.class)
+    @ExceptionHandler(ResourceNotFoundException.class) // ResourceNotFoundExceptionを処理
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleResourceNotFoundException(ResourceNotFoundException ex, Model model) {
         model.addAttribute("errorMessage", ex.getMessage());
-        return "error/404"; // カスタム404エラーページを表示
+        return "error/404"; 
     }
 }

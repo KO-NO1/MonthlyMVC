@@ -1,66 +1,63 @@
 /*メニュー */
 a {
-	text-decoration: none;
-	display: block;
-	padding: 10px;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
 }
-
+.menu a{
+	color: #fff;
+	font-size:2rem;
+}
+.menu a:visited {
+	color: #fff; /* 訪問済みリンクの色を通常のリンクと同じに設定 */
+	font-size:2rem;
+}
 header {
-	background-color: #191970;
-	color: #fff;
-	margin-top: 0;
-	margin-bottom: 30px;
-	padding-left: 10px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	font-size: 30px;
-}
-
-header a {
-	color: #fff;
+    background-color: #191970;
+    color: #fff;
+    margin: 0 0 30px 0;
+    padding: 10px;
+    font-size: 30px;
 }
 
 ul {
-	padding: 10px;
-	width: 900px;
-	display: flex;
-	flex-wrap: wrap;
-	margin: auto;
+    padding: 10px;
+
 }
 
 li {
-	width: 340px;
-	list-style-type: none;
-	margin-right: 20px;
-	margin-bottom: 35px;
-	border: solid 2px #4169e1;
-	border-left: solid 70px #4169e1;
-	font-size: 30px;
+    width: 340px;
+    list-style-type: none;
+    margin: 0 20px 35px 0;
+    border: solid 2px #4169e1;
+    border-left: solid 70px #4169e1;
+    font-size: 30px;
 }
-
-
 
 /*マンション一覧 */
 table {
-	border-collapse: collapse;
+    border-collapse: collapse;
 }
 
-table,
-th,
-td {
-	border: solid 1px #000;
-	padding: 5px;
+table, th, td {
+    border: solid 1px #000;
+    padding: 5px;
 }
 
 .imgList {
-	width: 150px;
+    width: 150px;
 }
 
 /*マンション登録 */
 .submit {
-	margin-top: 10px;
+    margin-top: 10px;
 }
 
 .error {
-	color: #f00;
+    color: #f00;
+}
+
+/* メニュー画面 */
+.menu {
+    color: azure;
 }

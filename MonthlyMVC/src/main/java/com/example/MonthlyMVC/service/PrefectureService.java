@@ -2,7 +2,7 @@ package com.example.MonthlyMVC.service;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
-import com.example.MonthlyMVC.model.Prefecture;
+import com.example.MonthlyMVC.entity.EntityPrefecture;
 
 /*
  * PrefectureテーブルのServiceインターフェース
@@ -18,24 +18,24 @@ public interface PrefectureService {
    * 
    * @return Prefecture
    */
-  Prefecture selectById(Integer id);
+  EntityPrefecture selectById(Integer id);
   /*
    * prefectureテーブルの全データを取得するメソッド
    * 
    * @return List<Prefecture>
    */
-  List<Prefecture> selectAll();
+  List<EntityPrefecture> selectAll();
   /*
    * prefectureテーブルに登録するメソッド
    * 
    * @param prefecture Prefecture
    */
-  void insert(Prefecture prefecture);
+  Boolean insert(EntityPrefecture entityPrefecture);
   /*
    * prefectureテーブルのIDを指定して、データを削除するメソッド
    * 
    * @param id ID
    */
-  void delete(Integer id);
+  Boolean delete(Integer id);
   
 }

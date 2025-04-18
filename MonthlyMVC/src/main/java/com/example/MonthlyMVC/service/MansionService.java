@@ -3,7 +3,6 @@ package com.example.MonthlyMVC.service;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.example.MonthlyMVC.entity.EntityMansion;
-import com.example.MonthlyMVC.model.Mansion;
 
 /*
  * MansionテーブルのServiceインターフェース
@@ -13,7 +12,7 @@ public interface MansionService {
   /*
    * mansionテーブルの全データを取得するメソッド
    */
-  List<Mansion> selectAll();
+  List<EntityMansion> selectAll();
 
   /*
    * mansionテーブルに登録するメソッド
@@ -29,7 +28,7 @@ public interface MansionService {
    * 
    * @return EntityMansion
    */
-  Mansion selectByIdDetail(Integer id);
+  EntityMansion selectByIdDetail(Integer id);
 
   /*
    * mansionテーブルのIDを指定して、データを削除するメソッド

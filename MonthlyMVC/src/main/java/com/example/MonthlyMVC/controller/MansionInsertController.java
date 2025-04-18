@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.MonthlyMVC.entity.EntityMansion;
+import com.example.MonthlyMVC.entity.EntityPrefecture;
 import com.example.MonthlyMVC.form.MansionInsertForm;
-import com.example.MonthlyMVC.model.Prefecture;
 import com.example.MonthlyMVC.service.MansionService;
 import com.example.MonthlyMVC.service.PrefectureService;
 import com.example.MonthlyMVC.util.FileHelper;
@@ -52,67 +52,48 @@ public class MansionInsertController {
   @GetMapping
   public String entry(Model model) {
     // 都道府県名ドロップダウンリスト作成
-    List<Prefecture> prefectureList = prefectureService.selectAll();
-        // maxMonthlyPrice が null の場合にデフォルト値を設定
-        for (Prefecture prefecture : prefectureList) {
-          if (prefecture.getMaxMonthlyPrice() == null) {
-              prefecture.setMaxMonthlyPrice(0); // デフォ6ルト値を設定
-          }
-      }
-  
-      model.addAttribute("prefectureList", prefectureList);
-      return "mansion/mansionInsert";
+    List<EntityPrefecture> prefectureList = prefectureService.selectAll();
+
+    model.addAttribute("prefectureList", prefectureList);
+    return "mansion/mansionInsert";
   }
 
   @PostMapping("confirm")
   public String confirm(
-      @SessionAttribute(value = "prefectureList", required = false) List<Prefecture> prefectureList,
+      @SessionAttribute(value = "prefectureList",
+          required = false) List<EntityPrefecture> prefectureList,
       @Validated MansionInsertForm mansionInsertForm, BindingResult bindingResult, Model model) {
-  
-      // 都道府県リストが null の場合、再取得
-      if (prefectureList == null) {
-          prefectureList = prefectureService.selectAll();
-          model.addAttribute("prefectureList", prefectureList);
+
+    // バリデーションエラーがある場合
+    if (bindingResult.hasErrors()) {
+      return "mansion/mansionInsert"; // エラーがある場合はフォーム画面に戻る
+    }
+
+    // 都道府県名の取り出し
+    String selectedPrefecture =
+        prefectureList.stream().filter(p -> p.getId().equals(mansionInsertForm.getPrefectureId()))
+            .map(EntityPrefecture::getPrefecture) // getPrefectureの値を取得
+            .findFirst().orElse(null);
+    mansionInsertForm.setPrefecture(selectedPrefecture);
+
+
+    // ファイルがアップされなかった場合は、noImageを登録する
+    if (mansionInsertForm.getImageFile() == null
+        || mansionInsertForm.getImageFile().getOriginalFilename().isEmpty()) {
+      mansionInsertForm.setImagePath(ImageEnum.IMAGE.getName() + ImageEnum.NO_IMAGE.getName());
+    } else {
+      // ファイルのアップロード
+      try {
+        fileHelper.multipartToFile(mansionInsertForm.getImageFile());
+      } catch (Exception e) {
+        e.printStackTrace();
+        return entry(model);
       }
-  
-      // 都道府県名の取り出し
-      Prefecture selectedPrefecture = prefectureList.stream()
-          .filter(p -> p.getId().equals(mansionInsertForm.getPrefectureId()))
-          .findFirst()
-          .orElse(null);
-  
-      if (selectedPrefecture != null) {
-          mansionInsertForm.setPrefecture(selectedPrefecture.getPrefecture());
-      } else {
-          bindingResult.rejectValue("prefectureId", "prefectureId.invalid", "無効な都道府県IDです。");
-          return entry(model);
-      }
-  
-      // バリデーションエラーがある場合
-      if (bindingResult.hasErrors()) {
-          bindingResult.getAllErrors().forEach(error -> 
-              System.out.println("エラー: " + error.getDefaultMessage())
-          );
-          return entry(model);
-      }
-  
-      // ファイルがアップされなかった場合は、noImageを登録する
-      if (mansionInsertForm.getImageFile() == null
-          || mansionInsertForm.getImageFile().getOriginalFilename().isEmpty()) {
-          mansionInsertForm.setImagePath(ImageEnum.IMAGE.getName() + ImageEnum.NO_IMAGE.getName());
-      } else {
-          // ファイルのアップロード
-          try {
-              fileHelper.multipartToFile(mansionInsertForm.getImageFile());
-          } catch (Exception e) {
-              e.printStackTrace();
-              return entry(model);
-          }
-          mansionInsertForm.setImagePath(
-              ImageEnum.IMAGE.getName() + mansionInsertForm.getImageFile().getOriginalFilename());
-      }
-  
-      return "mansion/mansionConfirm";
+      mansionInsertForm.setImagePath(
+          ImageEnum.IMAGE.getName() + mansionInsertForm.getImageFile().getOriginalFilename());
+    }
+
+    return "mansion/mansionConfirm";
   }
 
   @PostMapping("complete")
@@ -129,7 +110,7 @@ public class MansionInsertController {
 
     redirectAttributes.addAttribute("name", mansionRegistForm.getName());
     sessionStatus.setComplete();
-    return "redirect:/mansionInsert/mansionComplete";
+    return "redirect:/mansionComplete";
   }
 
   @GetMapping("mansionComplete")

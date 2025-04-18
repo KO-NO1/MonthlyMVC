@@ -21,7 +21,6 @@ public class MansionInsertForm implements Serializable {
   @NotNull(message = "{prefectureId.NotNull}")
   private Integer prefectureId;
 
-  @NotNull(message = "{prefecture.NotNull}")
   private String prefecture;
 
   @NotNull(message = "{monthlyPrice.NotNull}")

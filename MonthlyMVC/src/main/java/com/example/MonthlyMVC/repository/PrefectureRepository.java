@@ -26,10 +26,10 @@ public interface PrefectureRepository {
    * 
    * @param prefecture Prefecture
    */
-  void insert(Prefecture prefecture);
+  Boolean insert(Prefecture prefecture);
 
   /* 
    *  prefectureテーブルのIDを指定して、データを削除するメソッド
    */
-  void delete(Integer id);
+  Boolean delete(Integer id);
 }
